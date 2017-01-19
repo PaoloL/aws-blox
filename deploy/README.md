@@ -76,3 +76,36 @@ $ cd <GitRepoBase>/deploy/local/2_ecs_cluster
 aws cloudformation create-stack --stack-name Blox-ECS-Cluster --template-body file://./cluster_template.json --parameters fil
 e://./parameters_template.json --profile <profile>
 ```
+
+#### Scheduling tasks
+
+The Amazon ECS schedulers leverage the same cluster state information provided by the Amazon ECS API to make appropriate placement decisions.
+You can use a predefined scheduler (Service Scheduler or Task Scheduler) or create your own schedulers with Blox framework
+
+The **Service Scheduler** is ideally suited for long running stateless services and applications. The service scheduler ensures that the specified number of tasks are constantly running and reschedules tasks when a task fails (for example, if the underlying container instance fails for some reason). The service scheduler optionally also makes sure that tasks are registered against an Elastic Load Balancing load balancer.
+
+The **Tasks Scheduler**  is ideally suited for processes such as batch jobs that perform work and then stop. For example, you could have a process call RunTask when work comes into a queue. The task pulls work from the queue, performs the work, and then exits. Using RunTask, you can allow the default task placement strategy to distribute tasks randomly across your cluster, which minimizes the chances that a single instance gets a disproportionate number of tasks.
+
+The **Custom (Blox) Scheduler** enables you to build schedulers and integrate third-party schedulers with Amazon ECS while leveraging Amazon ECS to fully manage and scale your clusters. For more information, see StartTask in the Amazon EC2 Container Service API Reference.
+
+For example we can launch a task and distribute it randomly across your cluster with the run-task api
+
+##### Run Task
+
+Modify the image url on task definition json file with your image repository URL
+`"image": "831650818513.dkr.ecr.eu-west-1.amazonaws.com/paolol/bloxdemo:latest"`
+
+Register the task
+
+```
+$ cd <GitRepoBase>/deploy/local/3_ecs_task
+aws ecs register-task-definition --cli-input-json file://./sample_task.json --region eu-west-1 --profile <profile>
+
+```
+
+Run the task
+```
+$ cd <GitRepoBase>/deploy/local/3_ecs_task
+aws ecs run-task --cluster Blox-ECS-Cluster-ECSCluster-XXXX --task-definition BloxDemo:1 --region eu-west-1 --profile <profile>
+```
+![ECS Run Task](blox_ecs.png)
