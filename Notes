@@ -1,0 +1,15 @@
+# Step 1: Create SQS Queue and Configure CloudWatch Events to send ECS events to the SQS Queue
+
+Blox depends on an ECS event stream that is delivered via CloudWatch events. In order to use Blox,
+you need to create an SQS queue and configure CloudWatch to deliver the ECS events to this SQS queue.
+Blox provides a pre-built AWS CloudFormation template that will deploy and configure the required Amazon AWS components.
+Once you have pulled the CloudFormation template from the Blox repository, run the following command using the AWS CLI:
+
+aws cloudformation create-stack --stack-name BloxLocal-AWSComponents --template-body file://cloudformation_template.json --profile xpeppers-test
+
+# Step 2: Launch Blox
+
+Next, download the Docker Compose file from the Blox repo.
+Before launching Blox, you will first need to update docker-compose.yml with the following changes:
+- Update the AWS_REGION value with the region of your ECS and SQS resources.
+- Update the AWS_PROFILE value with your profile name

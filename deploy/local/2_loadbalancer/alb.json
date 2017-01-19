@@ -1,0 +1,142 @@
+{
+  "AWSTemplateFormatVersion":"2010-09-09",
+
+  "Description" : "Training Cluster ECS - ALB Tier",
+
+  "Parameters": {
+
+    "Project":
+    {
+      "Type":"String",
+      "Description":"Project name"
+    },
+    "Environment":
+    {
+      "Type":"String",
+      "Description":"Environment name"
+    },
+    "Role":
+    {
+      "Type":"String",
+      "Description":"Role name, for example Frontend"
+    },
+    "VpcId":
+    {
+      "Type":"AWS::EC2::VPC::Id",
+      "Description":"Select a VPC that allows instances to access the Internet."
+    },
+    "SubnetsList":
+    {
+      "Type":"CommaDelimitedList",
+      "Description":"Select at two subnets in your selected VPC."
+    }
+  },
+
+  "Resources": {
+
+    "LoadBalancerSecurityGroup":
+    {
+      "Type":"AWS::EC2::SecurityGroup",
+      "Properties":
+      {
+        "GroupDescription":"ECS Security Group",
+        "VpcId":{ "Ref":"VpcId" },
+        "SecurityGroupIngress" :
+        [
+          {
+            "IpProtocol":"tcp",
+            "FromPort":"80",
+            "ToPort":"80",
+            "CidrIp":"0.0.0.0/0"
+          }
+        ]
+      }
+    },
+
+    "ApplicationLoadBalancer":
+    {
+      "Type":"AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "Properties":{
+        "Name":{ "Fn::Join":["-",[{"Ref":"Project"},{"Ref":"Environment"},{"Ref":"Role"}]]},
+        "Scheme":"internet-facing",
+        "LoadBalancerAttributes":[
+          {
+            "Key":"idle_timeout.timeout_seconds",
+            "Value":"30"
+          }
+        ],
+        "Subnets":{"Ref":"SubnetsList"},
+        "SecurityGroups":[ { "Ref":"LoadBalancerSecurityGroup" } ]
+      }
+    },
+
+    "ApplicationLoadBalancerListener":
+    {
+      "Type":"AWS::ElasticLoadBalancingV2::Listener",
+      "Properties":{
+        "DefaultActions":[
+          {
+            "Type":"forward",
+            "TargetGroupArn":{"Ref":"TargetGroup"}
+          }
+        ],
+        "LoadBalancerArn":{ "Ref":"ApplicationLoadBalancer"},
+        "Port":"80",
+        "Protocol":"HTTP"
+      }
+    },
+
+    "ApplicationLoadBalancerListenerRule":
+    {
+      "Type":"AWS::ElasticLoadBalancingV2::ListenerRule",
+      "DependsOn":"ApplicationLoadBalancerListener",
+      "Properties":
+      {
+        "Actions":
+        [
+          {
+            "Type":"forward",
+            "TargetGroupArn":{"Ref":"TargetGroup"}
+          }
+        ],
+        "Conditions":
+        [
+          {
+            "Field":"path-pattern",
+            "Values":[
+              "/"
+            ]
+          }
+        ],
+        "ListenerArn":{ "Ref":"ApplicationLoadBalancerListener" },
+        "Priority":1
+      }
+    },
+
+    "TargetGroup":
+    {
+      "Type":"AWS::ElasticLoadBalancingV2::TargetGroup",
+      "DependsOn":"ApplicationLoadBalancer",
+      "Properties":{
+        "HealthCheckIntervalSeconds":10,
+        "HealthCheckPath":"/",
+        "HealthCheckProtocol":"HTTP",
+        "HealthCheckTimeoutSeconds":5,
+        "HealthyThresholdCount":2,
+        "Name":{ "Fn::Join":["-",[{"Ref":"Project"},{"Ref":"Environment"},{"Ref":"Role"}]]},
+        "Port":80,
+        "Protocol":"HTTP",
+        "UnhealthyThresholdCount":2,
+        "VpcId":{ "Ref":"VpcId" }
+      }
+    }
+  },
+
+  "Outputs":
+  {
+    "TargetGroupArn":
+    {
+      "Value":{"Ref": "TargetGroup"}
+    }
+  }
+}

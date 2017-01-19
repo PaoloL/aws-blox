@@ -1,0 +1,47 @@
+docker login -u AWS -p AQECAHh+dS+BlNu0NxnXwowbILs115yjd+LNAZhBLZsunOxk3AAAAw0wggMJBgkqhkiG9w0BBwagggL6MIIC9gIBADCCAu8GCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMKt2lvaTbsbCXxhJFAgEQ
+gIICwGTsvzDL1OJoHfAoX+6ldTp3jT8vv4A8TUHtVx7sQMQuRDKe8EXbhPF+6Fxz6Go1KJ5W24NpDuQsFADjHu88oydRYZForjkFPFSu9RMLBI89/2F9WLk82qIWbXQtGakSbizPls9gSJBhgP6rkYNKHPPTBWZ5oVclB4Bftp1lTm7
+lAJ4NSoX7uEtipgFNUGIyHnxQpyDdAbZ37rIeHr7t69tly+Y7PKnXcZ93MXwH2dC+XEONKFA8us8hQB0VchVLRb5IHWP91qO20Fdv19hMZBO6S7/p0vHU8w247HP5RnqxRBbdhGJnwAiM5d3DtY1fbwYusdS7qL3i/0YQlgNc7PV6dS
+fAFUDwPgUXmmJ/uTmT47+8t0HLybiavOxy7xsFRmypdE8c5NmuXt5iEsDhzr8EJ4hEeoIVIcl0s8qNR9QJobXx3BzOEOCet0FFnkoy/SQ5/P5nxop0DY1Q/9aXfLNmPkZGrPFTcxt+vBO0ZeTdFSTRgY2qwIqRS2+ZGC0J5qFFlIHwL
+ejcxq4bPimPcpxlq+ysuMrSnh2c/EpFMw16eFrvJ06jT5RaiAa/n1qI4Wc7WxH8CyV9w4Ky7m1BKqokFckCrKUh8JmF2CJhLujhG9t2uxhVHhwmoWH1asI3mafaSimSNZ4d4N0NOC++ZtVx2Fsa2XUmf8N5Jdy3RPIZ+h15/4D/Ki7I
+gY0Amoc5b4xKU2g+WooPXK+AX4pW1x5AXjT9u28PT74t6G+W6bYl0axD2+H1OH4HQrJv6VQV6wvaWKilWAO2iaIDRH/na/T9FYoe7GmM4pCve0ZZroCAbpnMZhSdPO1xb4CPIS3KA225Ixa8fLFUlb4HNQrVUphOU6iYD46z7/HorWU
+bciwlcKn5qHg10/rdV9Nc4SA4yIY3BRn+O2ivfGltNCQ2AxicVVzP8C5RLGaUtD0co09q -e none https://831650818513.dkr.ecr.eu-west-1.amazonaws.com
+
+
+
+- Supporto HTTP Progressive download
+- Supporto RTMPT Live per cloudfront 
+- Chiudere la POC (Fase2) entro il 31 Gennaio
+- - Uninettuno prova lo streaming VOD con una cartella copiata da DFS
+- - Uninettuno prova lo streaming VOD con un file transcodificato
+- Quanto influiscono le 2 macchine di streaming attualmente sui costi(800 $/Mese EC2 + 700 $/Mese di EBS)
+
+Condividere gli endpoint di produzione, con le chiavi di Test (Ticket)
+
+
+
+Hanno account AWS
+- Siamo sui 20-25K
+- Al momento hanno tutto on-demand
+- Qualche settimana inizierete a riservare qualcosina ()
+- 15K USD/Mese (
+
+- I crediti si possono applicare solo alle istanze on-demand
+- Fare una previsione del billing mensile facendo due simulazioni no-upfront e partila-upfront
+- Rivedere il contratto aggiungendo come preparato la componente mensile del punto di cui sopra moltiplicato per i mesi del prepagato.
+
+
+r.cdrv6y7qiB
+
+
+
+
+Despite its long-established roots, Cdc isn’t an institution that has remained entrenched in the past. It understands that modernization is key to keeping relevant in a fast-moving world, and as a result it has embraced change in its processes and structure. With a largely Citrix-based infrastructure, Corte dei conti had invested a lot in training its staff in this technology. It wanted to make the most of this investment, while at the same time making its architecture more agile. The answer was a hybrid cloud environment, and Cdc chose Amazon Web Services (AWS) and AWS Advanced Consulting Partner XPeppers to help it in this journey, starting with adopting a virtual desktop infrastructure (VDI) based on Amazon WorkSpaces. The infrastructure runs on 25 Amazon Elastic Compute Cloud (Amazon EC2) instances, which run only during office hours, between 8:00 am and 8:00 pm. Cdc uses AWS Lambda to orchestrate the startup and shutdown for each instance. Each department has a dedicated Amazon Virtual Private Cloud (Amazon VPC) and a virtual private network connection between the VPCs and Cdc’s data centers.
+
+
+- incabutaore ? Ufficialmente non stanno dentro Working Capital, Roma. 
+
+- Alessio Credit workload per 3 mesi 1.500 x3
+- Accellerate Luiss 10 K
+
+A
+

@@ -1,0 +1,139 @@
+{
+  "AWSTemplateFormatVersion":"2010-09-09",
+
+  "Description" : "Training Cluster ECS - Service Tier",
+
+  "Parameters": {
+
+    "Project":
+    {
+      "Type":"String",
+      "Description":"Project name"
+    },
+    "Environment":
+    {
+      "Type":"String",
+      "Description":"Environment name"
+    },
+    "Role":
+    {
+      "Type":"String",
+      "Description":"Role name"
+    },
+    "URIImage":
+    {
+      "Type":"String",
+      "Description":"URI of repository Docker image"
+    },
+    "TargetGroupArn":
+    {
+      "Type":"String",
+      "Description":"ARN of target group"
+    },
+    "ECSServiceRole":
+    {
+      "Type":"String",
+      "Description":"Role for ECS Service"
+    },
+    "ECSCluster":
+    {
+      "Type":"String",
+      "Description":"ECS Cluster"
+    }
+
+
+  },
+
+
+  "Resources": {
+
+    "CloudWatchLogsGroup":
+    {
+      "Type":"AWS::Logs::LogGroup",
+      "Properties":
+      {
+        "LogGroupName":{"Fn::Join":[ "-", ["ECSLogGroup",{"Ref":"AWS::StackName"}]]},
+        "RetentionInDays":14
+      }
+    },
+
+    "Task":
+    {
+      "Type":"AWS::ECS::TaskDefinition",
+      "Properties":
+      {
+        "Family": {"Ref" : "Role"},
+        "ContainerDefinitions":
+        [
+          {
+            "Name":{"Ref" : "Role"},
+            "Cpu":"10",
+            "Essential":"true",
+            "Image": {"Ref" : "URIImage"},
+            "Memory":"300",
+            "LogConfiguration":
+            {
+              "LogDriver":"awslogs",
+              "Options":
+              {
+                "awslogs-group":{ "Ref":"CloudWatchLogsGroup" },
+                "awslogs-region":{ "Ref":"AWS::Region" },
+                "awslogs-stream-prefix":{ "Fn::Join":["-",[{"Ref":"Project"},{"Ref":"Environment"},{"Ref":"Role"}]]}
+              }
+            },
+            "MountPoints":
+            [
+              {
+                "ContainerPath":"/usr/local/apache2/htdocs",
+                "SourceVolume":"my-vol"
+              }
+            ],
+            "PortMappings":[
+              {
+                "ContainerPort":80
+              }
+            ]
+          }
+        ],
+        "Volumes":
+        [
+          {
+            "Name":"my-vol"
+          }
+        ]
+      }
+    },
+
+    "Service":
+    {
+      "Type":"AWS::ECS::Service",
+      "Properties":
+      {
+        "Cluster":{"Ref":"ECSCluster"},
+        "DesiredCount":"1",
+        "LoadBalancers":[
+          {
+            "ContainerName": {"Ref" : "Role"},
+            "ContainerPort":"80",
+            "TargetGroupArn":{ "Ref":"TargetGroupArn" }
+          }
+        ],
+        "Role":{ "Ref":"ECSServiceRole" },
+        "TaskDefinition": {"Ref":"Task"}
+      }
+    }
+
+  },
+
+  "Outputs":
+  {
+    "ECSService":
+    {
+      "Value":{ "Ref":"Service"}
+    },
+    "TaskDefinition":
+    {
+      "Value":{ "Ref":"Task" }
+    }
+  }
+}

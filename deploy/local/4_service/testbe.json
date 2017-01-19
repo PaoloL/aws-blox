@@ -1,0 +1,31 @@
+[
+  {
+    "ParameterKey": "Project",
+    "ParameterValue": "pixartprinting"
+  },
+  {
+    "ParameterKey": "Environment",
+    "ParameterValue": "training"
+  },
+  {
+    "ParameterKey": "Role",
+    "ParameterValue": "backend"
+  },
+  {
+    "ParameterKey": "URIImage",
+    "ParameterValue": "831650818513.dkr.ecr.eu-west-1.amazonaws.com/pixartprinting-demo/Backend-F:latest"
+  },
+  {
+    "ParameterKey": "TargetGroupArn",
+    "ParameterValue": "arn:aws:elasticloadbalancing:eu-west-1:831650818513:targetgroup/pixartprinting-training-be/4be69a6371e533c5"
+  },
+  {
+    "ParameterKey": "ECSServiceRole",
+    "ParameterValue": "ECS-TestRole"
+  },
+  {
+    "ParameterKey": "ECSCluster",
+    "ParameterValue": "pixart-test-ecs-ECSCluster-KEIIBGVB01CQ"
+  }
+
+]
