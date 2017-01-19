@@ -33,7 +33,7 @@ Blox is an open source cluster manager and orchestration framework that enables 
 
 #### AWS CLI
 
-You will need to have the AWS CLI installed locally to create the required AWS components. Follow the instructions at [Installing the AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) to install the CLI before proceeding. 
+You will need to have the AWS CLI installed locally to create the required AWS components. Follow the instructions at [Installing the AWS Command Line Interface](http://docs.aws.amazon.com/cli/latest/userguide/installing.html) to install the CLI before proceeding.
 
 #### IAM Permissions
 
@@ -153,7 +153,7 @@ https://<api-gateway-id>.execute-api.us-east-1.amazonaws.com/blox
 #### Authentication
 
 When deploying Blox on AWS, we use AWS IAM Authentication with [Signature Version 4](http://docs.aws.amazon.com/general/latest/gr/sigv4_signing.html) signing. The AWS user that you are using to authenticate with the Amazon API Gateway REST URL will need to have the following IAM Policy applied. Choose the appropriate Resource pattern based upon the permissions you want the user to have.
- 
+
 ```
 {
   "Version": "2012-10-17",
@@ -235,7 +235,7 @@ You can monitor the deletion progress via the same [Monitor Progress](#monitor-p
 
 ```
 $ aws --region <region> cloudformation describe-stack-resource --stack-name BloxAws --logical-resource-id Vpc --query 'StackResourceDetail.PhysicalResourceId' --output text
-(Replace <VpcId> in the next command with the output returned) 
+(Replace <VpcId> in the next command with the output returned)
 
 $ aws --region <region> ec2 describe-network-interfaces --filters "Name=vpc-id,Values=<VpcId>" | egrep "(Description|AttachmentId|NetworkInterfaceId)"
 (Replace the <AttachmentId> and <NetworkInterfaceId> of the 'AWS Lambda VPC ENI' in the next two commands)
