@@ -1,4 +1,4 @@
-# ![Logo](blox-logo.png)
+# ![Logo](blox-logo.png) *workshop version*
 
 ### Description
 Blox is a collection of open source projects for container management and orchestration. Blox gives you more control over how your containerized applications run on Amazon ECS. It enables you to build schedulers and integrate third-party schedulers on top of ECS, while leveraging Amazon ECS to fully manage and scale your clusters.
@@ -25,8 +25,8 @@ We provide two methods for deploying *blox* components:
 
 #### Local Deployment
 
-You can deploy locally and quickly try out Blox using our Docker Compose file. This allows you to get started with building custom schedulers using the cluster-state-service. The Docker Compose file launches the *blox* components, *cluster-state-service* and *daemon-scheduler*, along with a backing state store, etcd. Please see [Blox Deployment Guide](deploy) to launch *blox* using the Docker Compose file.
+You can deploy locally and quickly try out Blox using our Docker Compose file. This allows you to get started with building custom schedulers using the cluster-state-service. The Docker Compose file launches the *blox* components, *cluster-state-service* and *daemon-scheduler*, along with a backing state store, etcd. Please see [Blox Deployment Guide](deploy/README.md) to launch *blox* using the Docker Compose file.
 
 #### AWS Deployment
 
-We also provide an AWS CloudFormation template to launch the *blox* stack easily on AWS. The AWS deployed *blox* stack makes use of AWS services designed to provide a secure public facing scheduler endpoint.
+In this workshop we use only the local deployment. For AWS Deployment and complete deployment guide go to official [Blox](https://github.com/blox/blox) repository
